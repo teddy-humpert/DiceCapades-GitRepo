@@ -17,6 +17,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
 
+
+// next steps include getting log output to work, so that there can eventually be data analysis.
+
+
 public class App {
 
     private final Scanner keyboard = new Scanner(System.in);
@@ -50,32 +54,27 @@ public class App {
                         for (int i = 0; i < sidesOfDice; i++) {
                             rollingArray.add(i + 1);
                         }
-                        // builds correct amount of sides on dice.
-                        //shuffles the array and returns a 'rolled' array
+
                         diceArray = crazyShuffle(rollingArray);
-                        // each one of the above arrays is being shuffled, but that's only rolling one die.
-                        // so i need to do that, pick the first. add that to new array. and then do it again with a different array.
+
                         for (int i = 0; i < numberOfDice; i++) {
                             Collections.shuffle(diceArray);
                             rollResults.add(diceArray.get(0));
                         }
-                        // prompts for ordering
-                        //ascending
+
                         if (sortPrompt.equalsIgnoreCase("A")) {
                             Collections.sort(rollResults, Collections.reverseOrder());
                             System.out.println(rollResults);
                             logDiceResults(rollResults);
                         }
-                        //descending
                         if (sortPrompt.equalsIgnoreCase("D")) {
                             Collections.sort(rollResults);
                             System.out.println(rollResults);
                             logDiceResults(rollResults);
-                        }                                                                                               // none
+                        }
                         if (sortPrompt.equalsIgnoreCase("n")) {
                             System.out.println(rollResults);
                             logDiceResults(rollResults);
-                            //sum results or not. could make a separate method i guess
                         }
                         if (sumPrompt.equalsIgnoreCase("y")) {
                             int sum = 0;
@@ -84,7 +83,6 @@ public class App {
                             }
                             System.out.println(sum);
                         }
-                        // run crit count
                         int critCount = critCountCheck(rollResults, sidesOfDice);
                         System.out.println(printCritCountResults(critCount, sidesOfDice));
                         System.out.println();
@@ -134,7 +132,7 @@ public class App {
                 int critCount = critCountCheck(keptDice, sidesOfDice);
                 System.out.println(printCritCountResults(critCount, sidesOfDice));
                 System.out.println();
-//                break;
+
             } else if (mainMenuSelection == 3) {
                 int numberOfDice = promptForInt("How many dice would you like to roll? ");
                 int sidesOfDice = promptForInt("How many sides on the dice? ");
@@ -195,13 +193,9 @@ public class App {
         System.out.println("----------------------");
         System.out.println("Welcome to Dice Capades");
         System.out.println("----------------------");
-//        System.out.println();
     }
 
     private void printMainMenu() {
-//        System.out.println("---------");
-//        System.out.println("MAIN MENU");
-//        System.out.println("---------");
         System.out.println("1: Roll Dice");
         System.out.println("2: Roll Dice - Keep Highest");
         System.out.println("3: Roll Dice - Keep Lowest");
@@ -230,13 +224,12 @@ public class App {
         } catch (NumberFormatException e) {
             intInput = -1;
             displayInputError();
-            run(); // ok but what's actually happening here?
+            run();
         }
         return intInput;
     }
 
     private String promptForSort(String prompt) {
-//        String decision = keyboard.nextLine();
         System.out.print(prompt);
         String decision = keyboard.nextLine();
         if (decision.equalsIgnoreCase("a") || decision.equalsIgnoreCase("d") ||
@@ -244,10 +237,10 @@ public class App {
             return decision;
         } else {
             displayInputError();
-            run();    // while and then prompt again.
+            run();
         }
         return null;
-//        return keyboard.nextLine();
+
     }
 
     private String promptForSum(String prompt) {
@@ -263,30 +256,11 @@ public class App {
         return null;
     }
 
-//    private void promptForReturn() {
-//        System.out.println("Press RETURN to continue.");
-//        keyboard.nextLine();
-//    }
 
     private List<Integer> crazyShuffle(List<Integer> diceArray) {
-        Collections.shuffle(diceArray);
-        Collections.shuffle(diceArray);
-        Collections.shuffle(diceArray);
-        Collections.shuffle(diceArray);
-        Collections.shuffle(diceArray);
-        Collections.shuffle(diceArray);
-        Collections.shuffle(diceArray);
-        Collections.shuffle(diceArray);
-        Collections.shuffle(diceArray);
-        Collections.shuffle(diceArray);
-        Collections.shuffle(diceArray);
-        Collections.shuffle(diceArray);
-        Collections.shuffle(diceArray);
-        Collections.shuffle(diceArray);
-        Collections.shuffle(diceArray);
-        Collections.shuffle(diceArray);
-        Collections.shuffle(diceArray);
-        Collections.shuffle(diceArray);
+        for (int i = 0; i < 50; i ++) {
+            Collections.shuffle(diceArray);
+        }
         return diceArray;
     }
 
@@ -316,11 +290,8 @@ public class App {
 
     private void displayInputError() {
         System.out.println("***Invalid Selection***");
-//        System.out.println("**Returning to Main Menu**");
     }
 
-    //intent to add an audit path for logging all roll results - so that eventually i can run data on whether odds are playing out relatively naturally
-    // works but is printing array bracket -- need to loop that out?
     private void logDiceResults(List results) {
         String auditPath = "DiceCapades/src/main/resources/logTest.txt";
         File logFile = new File(auditPath);
@@ -335,7 +306,6 @@ public class App {
         }
     }
 
-    //intent to add log reader to assess data.
     public void readLogResults() {
         Map<String, Integer> output = new HashMap<>();
         String filePath = "DiceCapades/src/main/resources/logTest.txt";
