@@ -322,7 +322,7 @@ public class App {
     //intent to add an audit path for logging all roll results - so that eventually i can run data on whether odds are playing out relatively naturally
     // works but is printing array bracket -- need to loop that out?
     private void logDiceResults(List results) {
-        String auditPath = "src\\main\\resources\\logTest.txt";
+        String auditPath = "DiceCapades/src/main/resources/logTest.txt";
         File logFile = new File(auditPath);
         String str = results.toString();
         String auditString = str.substring(1, str.length() - 1);
@@ -338,7 +338,7 @@ public class App {
     //intent to add log reader to assess data.
     public void readLogResults() {
         Map<String, Integer> output = new HashMap<>();
-        String filePath = "src\\main\\resources\\logTest.txt";
+        String filePath = "DiceCapades/src/main/resources/logTest.txt";
         File bookFile = new File(filePath);
         boolean isFileFound = false;
         String runString = "";
